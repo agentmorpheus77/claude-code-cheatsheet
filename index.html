@@ -131,12 +131,18 @@
         <span class="bg-purple-500/20 text-purple-500 px-3 py-1 rounded-full text-sm sm:text-base font-medium" x-text="'v' + version"></span>
         <span class="px-3 py-1 rounded-full text-sm sm:text-base flex items-center gap-1.5" :style="'background: var(--card); border: 1px solid var(--border); color: var(--muted)'"><span class="pulse-dot"></span> <span x-text="t('updated') + ' ' + lastUpdated"></span></span>
         <span class="px-3 py-1 rounded-full text-sm sm:text-base font-semibold" :style="'background: var(--card); border: 1px solid var(--border); color: var(--muted)'"><span class="text-3xl sm:text-4xl leading-none align-middle mr-1" :style="'color: var(--text)'" x-text="totalItems"></span> <span x-text="t('commands')"></span></span>
-        <!-- OS Toggle -->
-        <span class="px-3 py-1 rounded-full text-sm cursor-pointer select-none transition" :style="'background: var(--card); border: 1px solid var(--border); color: var(--muted)'" @click="toggleOS()" :title="t('switchTo') + ' ' + (isMac ? 'Windows/Linux' : 'Mac')">
-          <span :style="isMac ? 'color: var(--text); font-weight: 500' : ''">Mac</span>
-          <span class="mx-1" :style="'color: var(--muted); opacity: 0.5'">|</span>
-          <span :style="!isMac ? 'color: var(--text); font-weight: 500' : ''">Win/Linux</span>
-        </span>
+        <!-- OS Toggle Switch -->
+        <button @click="toggleOS()" class="flex items-center gap-2 px-3 py-1 rounded-full text-sm cursor-pointer select-none transition-all" :style="'background: var(--card); border: 1px solid var(--border); color: var(--muted)'">
+          <span :style="!isMac ? 'color: var(--text); font-weight:600' : 'opacity:0.45'" class="transition-all">Win</span>
+          <!-- Toggle pill -->
+          <span class="relative inline-flex h-5 w-9 rounded-full transition-colors duration-200 ease-in-out flex-shrink-0"
+                :style="isMac ? 'background:#a855f7' : 'background:#f97316'">
+            <span class="inline-block h-4 w-4 rounded-full bg-white shadow transform transition-transform duration-200 ease-in-out mt-0.5"
+                  :style="isMac ? 'transform: translateX(18px)' : 'transform: translateX(2px)'">
+            </span>
+          </span>
+          <span :style="isMac ? 'color: var(--text); font-weight:600' : 'opacity:0.45'" class="transition-all">Mac</span>
+        </button>
       </div>
     </section>
 
