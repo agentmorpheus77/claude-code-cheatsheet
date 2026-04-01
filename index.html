@@ -476,7 +476,8 @@
               y += 8;
 
               for (const item of section.items) {
-                const keyText = this.formatKey(item.key);
+                // PDF always uses raw key (no Mac symbols — jsPDF can't render ⌘/⌥)
+                const keyText = item.key;
                 const descText = item.description;
                 const explText = item.explanation || '';
 
@@ -487,14 +488,18 @@
 
                 checkPage(itemH);
 
-                // Key badge — light gray bg, colored border, dark text
+                // Key badge — single box, full key as one string
                 doc.setFontSize(6.5);
-                const badgeW = Math.min(doc.getTextWidth(keyText) + 3, colW - 2);
+                doc.setFont('helvetica', 'bold');
+                const keyDisplay = keyText.replace(/\s*\+\s*/g, '+');
+                const badgeW = Math.min(doc.getTextWidth(keyDisplay) + 4, colW - 2);
                 doc.setFillColor(240, 240, 240);
                 doc.setDrawColor(sr, sg, sb);
-                doc.roundedRect(getX(), y, badgeW, 4, 1, 1, 'FD');
+                doc.setLineWidth(0.4);
+                doc.roundedRect(getX(), y, badgeW, 4.5, 0.8, 0.8, 'FD');
                 doc.setTextColor(30, 30, 30);
-                doc.text(keyText, getX() + 1.5, y + 2.8);
+                doc.text(keyDisplay, getX() + 2, y + 3.1);
+                doc.setFont('helvetica', 'normal');
 
                 // Badge label
                 if (item.badge) {
