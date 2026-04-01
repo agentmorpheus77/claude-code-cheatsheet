@@ -50,7 +50,7 @@
       .no-print { display: none !important; }
       .print-break { page-break-inside: avoid; }
       .accordion-body { max-height: none !important; overflow: visible !important; padding-bottom: 8px !important; }
-      header, .hero-section, .newsletter-section { display: none !important; }
+      header, .hero-section { display: none !important; }
       main { padding-top: 0 !important; }
       section { break-inside: avoid; }
       .print-grid { display: grid !important; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -140,12 +140,12 @@
     </section>
 
     <!-- Section Nav Pills -->
-    <nav class="nav-pill flex gap-2 overflow-x-auto pb-4 mb-8 no-print">
+    <nav class="nav-pill flex gap-2 overflow-x-auto pb-4 mb-8 no-print lg:sticky lg:top-[56px] lg:z-40 lg:py-3 lg:-mx-4 lg:px-4 lg:backdrop-blur" :style="'background:' + (theme === 'light' ? 'rgba(255,255,255,0.9)' : 'rgba(13,17,23,0.9)')">
       <template x-for="section in sections" :key="section.id">
         <a
           :href="'#' + section.id"
           class="shrink-0 px-3 py-1.5 rounded-full text-sm font-medium border transition hover:opacity-80"
-          :style="'border-color:' + section.color + '40; color:' + section.color + '; background:' + section.color + '15'"
+          :style="'border-color:' + section.color + (activeSection === section.id ? '' : '40') + '; color:' + (activeSection === section.id ? '#fff' : section.color) + '; background:' + (activeSection === section.id ? section.color : section.color + '15')"
           x-text="section.title"
         ></a>
       </template>
@@ -216,33 +216,16 @@
       <p :style="'color: var(--muted)'" class="text-lg"><span x-text="t('noResults')"></span> "<span :style="'color: var(--text)'" x-text="search"></span>"</p>
     </div>
 
-    <!-- Newsletter -->
-    <section class="newsletter-section my-16 rounded-xl p-6 sm:p-8 text-center no-print" :style="'background: var(--card); border: 1px solid var(--border)'">
-      <h3 class="text-xl font-bold mb-2" :style="'color: var(--text)'" x-text="t('stayUpdated')"></h3>
-      <p class="mb-6 text-sm" :style="'color: var(--muted)'" x-text="t('newsletterDesc')"></p>
-      <form
-        @submit.prevent="subscribeNewsletter()"
-        class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-      >
-        <input
-          type="email"
-          x-model="email"
-          placeholder="you@example.com"
-          required
-          class="flex-1 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-purple-500"
-          :style="'background: var(--bg); border: 1px solid var(--border); color: var(--text)'"
-        >
-        <button
-          type="submit"
-          class="bg-purple-500 hover:bg-purple-500/90 text-white font-medium px-6 py-2 rounded-lg text-sm transition"
-          x-text="t('subscribe')"
-        >
-        </button>
-      </form>
-      <p x-show="subscribed" x-transition class="text-green-400 text-sm mt-3" x-text="t('subscribed')"></p>
-    </section>
-
   </main>
+
+  <!-- Back to Top Button -->
+  <button
+    x-show="showScrollTop"
+    x-transition
+    @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-purple-500 text-white shadow-lg flex items-center justify-center text-xl font-bold hover:bg-purple-600 transition no-print"
+    title="Back to top"
+  >↑</button>
 
   <!-- Footer -->
   <footer class="py-8 mt-8 no-print" :style="'border-top: 1px solid var(--border)'">
@@ -270,10 +253,6 @@
         commands: 'commands',
         switchTo: 'Click to switch to',
         noResults: 'No commands match',
-        stayUpdated: 'Stay Updated',
-        newsletterDesc: 'Get notified when Claude Code ships new features.',
-        subscribe: 'Subscribe',
-        subscribed: "Thanks! You're on the list.",
         footerText: 'Built for the Claude Code community',
       },
       de: {
@@ -288,10 +267,6 @@
         commands: 'Befehle',
         switchTo: 'Wechseln zu',
         noResults: 'Keine Befehle gefunden für',
-        stayUpdated: 'Auf dem Laufenden bleiben',
-        newsletterDesc: 'Werde benachrichtigt, wenn Claude Code neue Features veröffentlicht.',
-        subscribe: 'Abonnieren',
-        subscribed: 'Danke! Du bist auf der Liste.',
         footerText: 'Erstellt für die Claude Code Community',
       }
     };
@@ -302,9 +277,9 @@
         version: '',
         lastUpdated: '',
         search: '',
-        email: '',
-        subscribed: false,
         openItems: {},
+        showScrollTop: false,
+        activeSection: '',
         isMac: navigator.platform.toUpperCase().includes("MAC"),
         pdfLoading: false,
         theme: localStorage.getItem('theme') || 'dark',
@@ -362,6 +337,30 @@
           this.sections = data.sections;
           this.version = data.version;
           this.lastUpdated = data.lastUpdated;
+
+          // Back-to-top scroll listener
+          window.addEventListener('scroll', () => {
+            this.showScrollTop = window.scrollY > 300;
+          });
+
+          // Intersection observer for active section highlighting
+          this.$nextTick(() => {
+            const observer = new IntersectionObserver((entries) => {
+              for (const entry of entries) {
+                if (entry.isIntersecting) {
+                  this.activeSection = entry.target.id;
+                }
+              }
+            }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+            // Observe sections once they're rendered
+            setTimeout(() => {
+              for (const section of this.sections) {
+                const el = document.getElementById(section.id);
+                if (el) observer.observe(el);
+              }
+            }, 100);
+          });
         },
 
         toggle(sectionId, idx) {
@@ -384,12 +383,6 @@
             document.execCommand('copy');
             document.body.removeChild(ta);
           }
-        },
-
-        subscribeNewsletter() {
-          console.log('Newsletter signup:', this.email);
-          this.subscribed = true;
-          this.email = '';
         },
 
         printPage() {
@@ -428,19 +421,20 @@
             let col = 0;
             let y = margin;
 
-            const addBackground = () => {
-              doc.setFillColor(13, 17, 23);
-              doc.rect(0, 0, pageW, pageH, 'F');
+            const addPageFooter = () => {
+              doc.setFontSize(7);
+              doc.setTextColor(160, 160, 160);
+              doc.text('claudecheat.dev', pageW / 2, pageH - 5, { align: 'center' });
             };
 
-            addBackground();
+            addPageFooter();
 
             // Title bar
             doc.setFontSize(14);
             doc.setTextColor(168, 85, 247);
             doc.text('Claude Code Cheatsheet v' + this.version, pageW / 2, y + 6, { align: 'center' });
             y = y + 12;
-            doc.setDrawColor(48, 54, 61);
+            doc.setDrawColor(200, 200, 200);
             doc.line(margin, y, pageW - margin, y);
             y += 4;
 
@@ -454,13 +448,13 @@
             };
 
             const checkPage = (needed) => {
-              if (y + needed > pageH - margin) {
+              if (y + needed > pageH - margin - 8) {
                 if (col === 0) {
                   col = 1;
                   y = startY;
                 } else {
                   doc.addPage();
-                  addBackground();
+                  addPageFooter();
                   col = 0;
                   y = margin + 4;
                 }
@@ -473,11 +467,11 @@
               checkPage(14);
               const [sr, sg, sb] = hexToRgb(section.color);
 
-              // Section header
+              // Section header — white bg, colored left border, dark text
               doc.setFillColor(sr, sg, sb);
               doc.rect(getX(), y, 1.5, 5, 'F');
               doc.setFontSize(9);
-              doc.setTextColor(sr, sg, sb);
+              doc.setTextColor(30, 30, 30);
               doc.text(section.title.toUpperCase(), getX() + 4, y + 4);
               y += 8;
 
@@ -493,36 +487,37 @@
 
                 checkPage(itemH);
 
-                // Key badge
+                // Key badge — light gray bg, colored border, dark text
                 doc.setFontSize(6.5);
-                doc.setTextColor(sr, sg, sb);
                 const badgeW = Math.min(doc.getTextWidth(keyText) + 3, colW - 2);
-                doc.setFillColor(sr, sg, sb, 0.15);
-                doc.roundedRect(getX(), y, badgeW, 4, 1, 1, 'F');
+                doc.setFillColor(240, 240, 240);
+                doc.setDrawColor(sr, sg, sb);
+                doc.roundedRect(getX(), y, badgeW, 4, 1, 1, 'FD');
+                doc.setTextColor(30, 30, 30);
                 doc.text(keyText, getX() + 1.5, y + 2.8);
 
                 // Badge label
                 if (item.badge) {
                   const bx = getX() + badgeW + 1.5;
                   doc.setFontSize(5);
-                  if (item.badge === 'NEW') doc.setTextColor(34, 197, 94);
-                  else if (item.badge === 'CHANGED') doc.setTextColor(245, 158, 11);
-                  else doc.setTextColor(239, 68, 68);
+                  if (item.badge === 'NEW') doc.setTextColor(22, 163, 74);
+                  else if (item.badge === 'CHANGED') doc.setTextColor(202, 138, 4);
+                  else doc.setTextColor(220, 38, 38);
                   doc.text(item.badge, bx, y + 2.8);
                 }
 
                 y += 5;
 
-                // Description
+                // Description — dark text
                 doc.setFontSize(6);
-                doc.setTextColor(209, 213, 219);
+                doc.setTextColor(30, 30, 30);
                 doc.text(descLines, getX() + 1, y + 2);
                 y += descLines.length * 3;
 
-                // Explanation
+                // Explanation — gray text
                 if (explText) {
                   doc.setFontSize(5.5);
-                  doc.setTextColor(139, 148, 158);
+                  doc.setTextColor(100, 100, 100);
                   doc.text(explLines, getX() + 1, y + 1.5);
                   y += explLines.length * 2.8 + 1;
                 }
