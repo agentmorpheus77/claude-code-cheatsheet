@@ -99,9 +99,7 @@
             <button @click="setLang('de')" class="px-2 py-1 transition" :style="lang === 'de' ? 'background: var(--text); color: var(--bg)' : 'color: var(--muted)'">DE</button>
           </div>
           <!-- Print Button -->
-          <button @click="printPage()" class="transition text-sm px-2 py-1 rounded hover:opacity-80" :style="'color: var(--muted)'" :title="t('print')">
-            🖨️
-          </button>
+          
           <!-- PDF Button -->
           <button @click="exportPDF()" :disabled="pdfLoading" class="transition text-sm px-2 py-1 rounded flex items-center gap-1 hover:opacity-80" :style="'color: var(--muted)'" title="Export PDF">
             <template x-if="pdfLoading"><span class="spinner"></span></template>
@@ -186,14 +184,7 @@
                     ></span>
                   </template>
                   <span class="flex-1 text-sm" :style="'color: var(--text); opacity: 0.85'" x-text="item.description"></span>
-                  <button
-                    class="copy-btn p-1 no-print hover:opacity-80"
-                    :style="'color: var(--muted)'"
-                    @click.stop="copyToClipboard(item.key)"
-                    title="Copy"
-                  >
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                  </button>
+                  
                   <svg
                     class="w-4 h-4 chevron no-print"
                     :class="isOpen(section.id, idx) && 'rotate'"
@@ -219,13 +210,7 @@
   </main>
 
   <!-- Back to Top Button -->
-  <button
-    x-show="showScrollTop"
-    x-transition
-    @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
-    class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-purple-500 text-white shadow-lg flex items-center justify-center text-xl font-bold hover:bg-purple-600 transition no-print"
-    title="Back to top"
-  >↑</button>
+  
 
   <!-- Footer -->
   <footer class="py-8 mt-8 no-print" :style="'border-top: 1px solid var(--border)'">
