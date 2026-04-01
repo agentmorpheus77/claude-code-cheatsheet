@@ -1,0 +1,615 @@
+{
+  "version": "2.81",
+  "lastUpdated": "2026-03-24",
+  "sections": [
+    {
+      "id": "keyboard-shortcuts",
+      "title": "Keyboard Shortcuts",
+      "color": "#ef4444",
+      "icon": "Keyboard",
+      "items": [
+        {
+          "key": "Ctrl + C",
+          "description": "Cancel input/generation",
+          "explanation": "Stops the current generation immediately. Useful when Claude is producing too much output or going in the wrong direction."
+        },
+        {
+          "key": "Ctrl + C (twice)",
+          "description": "Force quit / exit",
+          "explanation": "Press Ctrl+C twice quickly to force quit Claude Code entirely."
+        },
+        {
+          "key": "Ctrl + L",
+          "description": "Clear conversation",
+          "explanation": "Clears the current conversation display while keeping context. Good for visual cleanup."
+        },
+        {
+          "key": "Ctrl + D",
+          "description": "Exit (EOF)",
+          "explanation": "Sends end-of-file signal to exit the Claude Code CLI gracefully."
+        },
+        {
+          "key": "Ctrl + A",
+          "description": "Move cursor to start of line",
+          "explanation": "Standard terminal shortcut — jumps cursor to the beginning of the current input line."
+        },
+        {
+          "key": "Ctrl + E",
+          "description": "Move cursor to end of line",
+          "explanation": "Standard terminal shortcut — jumps cursor to the end of the current input line."
+        },
+        {
+          "key": "Ctrl + U",
+          "description": "Delete to start of line",
+          "explanation": "Clears everything from cursor position to the beginning of the line."
+        },
+        {
+          "key": "Ctrl + K",
+          "description": "Delete to end of line",
+          "explanation": "Clears everything from cursor position to the end of the line."
+        },
+        {
+          "key": "Ctrl + W",
+          "description": "Delete word backward",
+          "explanation": "Deletes the word before the cursor. Useful for quick corrections."
+        },
+        {
+          "key": "Ctrl + R",
+          "description": "Reverse search history",
+          "explanation": "Search through your previous Claude Code inputs. Type to filter, Enter to select."
+        },
+        {
+          "key": "Up / Down",
+          "description": "Navigate input history",
+          "explanation": "Cycle through previously entered prompts. Works like standard shell history."
+        },
+        {
+          "key": "Tab",
+          "description": "Autocomplete file paths & commands",
+          "explanation": "Tab completion for file paths and slash commands. Press twice to see all options."
+        },
+        {
+          "key": "Shift + Tab",
+          "description": "Toggle side bar",
+          "explanation": "Shows or hides the conversation side panel for quick navigation between conversations."
+        },
+        {
+          "key": "Esc",
+          "description": "Cancel / dismiss / back",
+          "explanation": "Cancels the current action, dismisses menus, or navigates back in the UI."
+        },
+        {
+          "key": "Ctrl + J / Enter",
+          "description": "Newline in multi-line input",
+          "explanation": "Insert a newline in your prompt without submitting. Great for writing multi-line prompts."
+        },
+        {
+          "key": "@ (mention)",
+          "description": "Reference agent / file / URL",
+          "explanation": "Use @ to mention files, URLs, or agents directly in your prompt for context."
+        },
+        {
+          "key": "# (hashtag)",
+          "description": "Reference topics / tags",
+          "explanation": "Use # to reference specific topics or conversation tags."
+        },
+        {
+          "key": "Opt + Enter",
+          "description": "Submit prompt (alternative)",
+          "explanation": "Alternative way to submit your prompt, configurable via keybindings."
+        }
+      ]
+    },
+    {
+      "id": "slash-commands",
+      "title": "Slash Commands",
+      "color": "#f59e0b",
+      "icon": "Terminal",
+      "items": [
+        {
+          "key": "/chat",
+          "description": "Start new conversation",
+          "explanation": "Opens a fresh conversation context. Previous context is preserved in history."
+        },
+        {
+          "key": "/clear",
+          "description": "Clear conversation context",
+          "explanation": "Resets the conversation context completely. Use when Claude seems confused or context is too long."
+        },
+        {
+          "key": "/compact",
+          "description": "Compact conversation (summarize)",
+          "explanation": "Summarizes the current conversation to reduce context size while retaining key information. Helps stay within token limits."
+        },
+        {
+          "key": "/config",
+          "description": "Open configuration",
+          "explanation": "Opens the Claude Code configuration editor for adjusting settings, permissions, and preferences."
+        },
+        {
+          "key": "/cost",
+          "description": "Show usage & cost info",
+          "explanation": "Displays token usage and cost information for the current session."
+        },
+        {
+          "key": "/diff",
+          "description": "Interactive diff viewer",
+          "explanation": "Shows a visual diff of changes Claude has made or is about to make. Helps review before accepting."
+        },
+        {
+          "key": "/doctor",
+          "description": "Diagnose installation issues",
+          "explanation": "Runs diagnostic checks on your Claude Code installation to identify and fix common problems."
+        },
+        {
+          "key": "/exit",
+          "description": "Exit Claude Code CLI",
+          "explanation": "Cleanly exits the Claude Code CLI session."
+        },
+        {
+          "key": "/help",
+          "description": "Show help & available commands",
+          "explanation": "Displays all available slash commands and their descriptions."
+        },
+        {
+          "key": "/init",
+          "description": "Initialize CLAUDE.md for project",
+          "explanation": "Creates a CLAUDE.md file with project context, conventions, and instructions for Claude to follow."
+        },
+        {
+          "key": "/login",
+          "description": "Authenticate / log in",
+          "explanation": "Authenticates with your Anthropic account or API key."
+        },
+        {
+          "key": "/logout",
+          "description": "Log out",
+          "explanation": "Signs out of the current authentication session."
+        },
+        {
+          "key": "/model",
+          "description": "Change AI model",
+          "explanation": "Switch between available models (e.g., Sonnet, Opus, Haiku). Affects capability and cost."
+        },
+        {
+          "key": "/permissions",
+          "description": "Manage permission settings",
+          "explanation": "Configure what actions Claude Code can perform automatically vs. requiring approval."
+        },
+        {
+          "key": "/pr-comments",
+          "description": "View PR review comments",
+          "explanation": "Fetches and displays comments from a GitHub pull request for review and response."
+        },
+        {
+          "key": "/review",
+          "description": "Code review current changes",
+          "explanation": "Asks Claude to review your current code changes, providing feedback on quality, bugs, and improvements."
+        },
+        {
+          "key": "/status",
+          "description": "Show session status",
+          "explanation": "Displays current session information including model, context usage, and connection status."
+        },
+        {
+          "key": "/terminal-setup",
+          "description": "Configure terminal integration",
+          "explanation": "Sets up terminal-specific integrations like shell completions and prompt indicators."
+        },
+        {
+          "key": "/vim",
+          "description": "Toggle vim keybindings",
+          "explanation": "Enables or disables vim-style keybindings for the input editor."
+        },
+        {
+          "key": "/fast",
+          "description": "Toggle fast mode",
+          "explanation": "Switches between normal and fast output mode. Uses the same model but with faster streaming. Toggle on/off."
+        },
+        {
+          "key": "/CONCEPT",
+          "description": "Toggle auto-accept mode",
+          "explanation": "When enabled, automatically accepts all tool calls without prompting for permission."
+        },
+        {
+          "key": "/add-dir",
+          "description": "Add working directory",
+          "explanation": "Adds an additional directory to Claude's working context for multi-project workflows."
+        },
+        {
+          "key": "/mcp",
+          "description": "Manage MCP servers",
+          "explanation": "Configure and manage Model Context Protocol servers for extended tool capabilities."
+        },
+        {
+          "key": "/listen",
+          "description": "Voice input mode",
+          "explanation": "Activates voice/microphone input for hands-free prompting."
+        },
+        {
+          "key": "/ide",
+          "description": "Configure IDE integration",
+          "explanation": "Sets up integration with VS Code, JetBrains, or other supported IDEs."
+        }
+      ]
+    },
+    {
+      "id": "workflows-tips",
+      "title": "Workflows & Tips",
+      "color": "#22c55e",
+      "icon": "Lightbulb",
+      "items": [
+        {
+          "key": "Plan → Build → Accept → Plan",
+          "description": "Iterative development loop",
+          "explanation": "The core Claude Code workflow: ask Claude to plan first, then build, review and accept changes, then plan the next step. Keeps work focused and reviewable."
+        },
+        {
+          "key": "Thinking & Effort",
+          "description": "Control Claude's thinking depth",
+          "explanation": "Use 'think harder', 'think step by step', or 'ultrathink' to increase reasoning effort. Higher effort = better results for complex tasks but slower and more expensive."
+        },
+        {
+          "key": "Git Workflow",
+          "description": "Let Claude handle git operations",
+          "explanation": "Claude can commit, branch, rebase, resolve conflicts, and create PRs. Say 'commit this' or 'create a PR' and Claude handles the git workflow."
+        },
+        {
+          "key": "Run Tests First",
+          "description": "Always verify before claiming done",
+          "explanation": "Tell Claude to run tests before finishing. 'Run the tests and fix any failures' ensures code actually works."
+        },
+        {
+          "key": "Explore → Fix Pattern",
+          "description": "Let Claude investigate before fixing",
+          "explanation": "For bugs, let Claude explore the codebase first: 'Find where X happens, understand why, then fix it.' Better results than jumping straight to a fix."
+        },
+        {
+          "key": "Multi-file Editing",
+          "description": "Claude handles cross-file changes",
+          "explanation": "Claude can edit multiple files atomically. Describe the change conceptually: 'Rename the User model to Account everywhere' and Claude finds all references."
+        },
+        {
+          "key": "/clear for Fresh Context",
+          "description": "Reset when context gets stale",
+          "explanation": "If Claude seems confused or stuck, /clear resets context. Then re-describe what you need with fresh context."
+        },
+        {
+          "key": "Claude + 'make'",
+          "description": "Create files and boilerplate",
+          "explanation": "Say 'make a React component for X' or 'make a test file for Y'. Claude creates well-structured files following project conventions."
+        },
+        {
+          "key": "Claude + 'open' / 'apply'",
+          "description": "Open files or apply suggestions",
+          "explanation": "Ask Claude to 'open the config file' or 'apply the changes we discussed'. Natural language file operations."
+        },
+        {
+          "key": "Ask for Plan First",
+          "description": "Get Claude to outline before coding",
+          "explanation": "For complex tasks, say 'plan how to implement X before writing code'. Claude outlines the approach for your review before making changes."
+        },
+        {
+          "key": "YOLO Mode",
+          "description": "Auto-accept all changes",
+          "explanation": "Use --dangerously-skip-permissions or /CONCEPT to auto-accept all tool calls. Useful for trusted, well-defined tasks. Use with caution!"
+        },
+        {
+          "key": "Headless / CI Mode",
+          "description": "Non-interactive for automation",
+          "explanation": "Use 'claude -p \"prompt\"' for non-interactive single-shot execution. Perfect for CI/CD pipelines and automation scripts."
+        },
+        {
+          "key": "Context Loading",
+          "description": "Provide relevant context upfront",
+          "explanation": "Paste error messages, link files with @, or describe the architecture. More context = better results. Claude reads files you reference."
+        },
+        {
+          "key": "Checkpoints / 'Undo'",
+          "description": "Claude creates restore points",
+          "explanation": "Claude automatically creates git checkpoints before major changes. Ask 'undo that' to revert to the last checkpoint."
+        }
+      ]
+    },
+    {
+      "id": "skills-agents",
+      "title": "Skills & Agents",
+      "color": "#06b6d4",
+      "icon": "Users",
+      "items": [
+        {
+          "key": "Custom Skills (.claude/skills/)",
+          "description": "Create reusable prompt templates",
+          "explanation": "Define skills as markdown files in .claude/skills/ or .claude/commands/. Each file becomes a slash command. Include frontmatter for name, description, and trigger conditions."
+        },
+        {
+          "key": "/skill-name",
+          "description": "Invoke a custom skill",
+          "explanation": "Run any custom skill by typing /skill-name. Skills can include complex multi-step workflows, coding standards, or domain-specific instructions."
+        },
+        {
+          "key": "Agent Tool (subagents)",
+          "description": "Spawn specialized sub-agents",
+          "explanation": "Claude can launch sub-agents for parallel work. Types include: general-purpose, Explore (codebase search), Plan (architecture), code-reviewer, and more."
+        },
+        {
+          "key": "Parallel Agents",
+          "description": "Run multiple agents concurrently",
+          "explanation": "Launch multiple sub-agents in a single message for independent tasks. E.g., research + implementation can run in parallel for faster results."
+        },
+        {
+          "key": "Background Agents",
+          "description": "Long-running async tasks",
+          "explanation": "Set run_in_background: true for agents that take a long time. You get notified when they complete. Great for large codebase searches."
+        },
+        {
+          "key": "Git Worktree Isolation",
+          "description": "Agents work in isolated branches",
+          "explanation": "Use isolation: 'worktree' to give agents their own copy of the repo. Changes stay isolated until reviewed and merged."
+        },
+        {
+          "key": "Agent SDK",
+          "description": "Build custom agents programmatically",
+          "explanation": "The Claude Agent SDK lets you build custom agents with tool use, memory, and multi-turn conversations. Available for Python and TypeScript."
+        },
+        {
+          "key": "Hooks (event-driven)",
+          "description": "Shell commands on events",
+          "explanation": "Configure hooks in settings.json to run shell commands in response to Claude Code events (pre/post tool calls, prompt submit, etc.)."
+        },
+        {
+          "key": "Remote Agents (Triggers)",
+          "description": "Schedule agents on cron",
+          "explanation": "Use /schedule to create remote agents that run on a cron schedule. Perfect for automated code reviews, dependency updates, or monitoring."
+        }
+      ]
+    },
+    {
+      "id": "mcp-servers",
+      "title": "MCP Servers",
+      "color": "#3b82f6",
+      "icon": "Server",
+      "items": [
+        {
+          "key": "transport: stdio",
+          "description": "Standard I/O transport",
+          "explanation": "Most common transport. MCP server communicates via stdin/stdout. Best for local tools. Config: {\"command\": \"node\", \"args\": [\"server.js\"]}"
+        },
+        {
+          "key": "transport: sse",
+          "description": "Server-Sent Events transport",
+          "explanation": "HTTP-based transport using SSE. Good for remote servers. Config: {\"url\": \"https://mcp-server.example.com/sse\"}"
+        },
+        {
+          "key": "transport: rest",
+          "description": "REST API transport (Remote MCP)",
+          "explanation": "RESTful HTTP transport for remote MCP servers. Supports authentication headers and custom endpoints."
+        },
+        {
+          "key": "Project: .mcp.json",
+          "description": "Project-level MCP config",
+          "explanation": "Place .mcp.json in your project root to define MCP servers available to all team members. Checked into version control."
+        },
+        {
+          "key": "User: ~/.claude/mcp.json",
+          "description": "User-level MCP config",
+          "explanation": "Personal MCP server configuration at ~/.claude/mcp.json. Available across all projects for this user."
+        },
+        {
+          "key": "Auth: API key / OAuth",
+          "description": "MCP server authentication",
+          "explanation": "MCP servers can require API keys (via env vars) or OAuth flows. Configure in the server's env or headers field."
+        },
+        {
+          "key": "/mcp",
+          "description": "Manage MCP servers interactively",
+          "explanation": "Use the /mcp slash command to add, remove, or configure MCP servers without editing JSON files directly."
+        },
+        {
+          "key": "Popular: GitHub, Slack, Linear",
+          "description": "Common MCP integrations",
+          "explanation": "Pre-built MCP servers exist for GitHub (issues, PRs), Slack (messages), Linear (tasks), Postgres (queries), and many more."
+        },
+        {
+          "key": "npx @anthropic/create-mcp",
+          "description": "Scaffold a new MCP server",
+          "explanation": "Quick-start command to create a new MCP server project with TypeScript boilerplate and example tools."
+        }
+      ]
+    },
+    {
+      "id": "memory-files",
+      "title": "Memory & Files",
+      "color": "#a855f7",
+      "icon": "Brain",
+      "items": [
+        {
+          "key": "CLAUDE.md",
+          "description": "Project instructions file",
+          "explanation": "The primary way to give Claude persistent instructions. Place in project root. Contains coding conventions, architecture notes, and project-specific rules Claude should follow."
+        },
+        {
+          "key": "~/.claude/CLAUDE.md",
+          "description": "Global user instructions",
+          "explanation": "User-level instructions that apply to ALL projects. Good for personal preferences, coding style, and default behaviors."
+        },
+        {
+          "key": ".claude/ directory",
+          "description": "Claude Code project config",
+          "explanation": "Contains project-specific Claude Code configuration: skills, commands, settings overrides, and local state."
+        },
+        {
+          "key": ".claude/settings.json",
+          "description": "Project permission settings",
+          "explanation": "Defines allowed/denied tools and permissions at the project level. Checked into git for team-wide consistency."
+        },
+        {
+          "key": "~/.claude/settings.json",
+          "description": "User permission settings",
+          "explanation": "Personal permission settings that apply across all projects. Overridden by project-level settings."
+        },
+        {
+          "key": "Memory system",
+          "description": "Persistent memory across sessions",
+          "explanation": "Claude Code can save memories to ~/.claude/memory/ for recall in future conversations. Includes user preferences, project context, and learned patterns."
+        },
+        {
+          "key": "Context @ mentions",
+          "description": "Reference files and URLs inline",
+          "explanation": "Use @filename or @url in prompts to load file contents or web pages directly into context. Claude reads them automatically."
+        },
+        {
+          "key": "Data export / import",
+          "description": "Backup and restore conversations",
+          "explanation": "Export conversation history and settings for backup or migration. Import to restore on a new machine."
+        }
+      ]
+    },
+    {
+      "id": "config-env",
+      "title": "Config & ENV",
+      "color": "#f97316",
+      "icon": "Settings",
+      "items": [
+        {
+          "key": "ANTHROPIC_API_KEY",
+          "description": "API key for authentication",
+          "explanation": "Set your Anthropic API key as an environment variable. Required for API-based authentication (vs. OAuth login)."
+        },
+        {
+          "key": "CLAUDE_CODE_MAX_TOKENS",
+          "description": "Max output tokens per response",
+          "explanation": "Controls maximum tokens Claude can generate per response. Higher values allow longer outputs but cost more."
+        },
+        {
+          "key": "CLAUDE_CODE_USE_BEDROCK=1",
+          "description": "Use AWS Bedrock backend",
+          "explanation": "Route Claude Code requests through AWS Bedrock instead of direct API. Requires AWS credentials configured."
+        },
+        {
+          "key": "CLAUDE_CODE_USE_VERTEX=1",
+          "description": "Use Google Vertex AI backend",
+          "explanation": "Route Claude Code requests through Google Cloud Vertex AI. Requires GCP credentials and project configured."
+        },
+        {
+          "key": "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC",
+          "description": "Disable telemetry & analytics",
+          "explanation": "Prevents Claude Code from sending non-essential telemetry data. Good for privacy-sensitive environments."
+        },
+        {
+          "key": "CLAUDE_CODE_SKIP_CLAUDE_MD",
+          "description": "Skip loading CLAUDE.md files",
+          "explanation": "Bypasses loading of CLAUDE.md instruction files. Useful for debugging when you suspect CLAUDE.md causes issues."
+        },
+        {
+          "key": "CLAUDE_CODE_BUDGET_TOKENS",
+          "description": "Set thinking budget tokens",
+          "explanation": "Controls the token budget for Claude's internal thinking/reasoning. More tokens = deeper analysis."
+        },
+        {
+          "key": "CLAUDE_CODE_PLUGIN_DIR",
+          "description": "Custom plugin directory path",
+          "explanation": "Override the default plugin directory location. Useful for shared team plugin repositories."
+        },
+        {
+          "key": "CLAUDE_CODE_EXPERT_LOOK_UP",
+          "description": "Expert lookup configuration",
+          "explanation": "Configure external expert/knowledge lookup sources for enhanced context retrieval."
+        },
+        {
+          "key": "CLAUDE.md (Env section)",
+          "description": "Environment config in CLAUDE.md",
+          "explanation": "Define environment-specific settings directly in CLAUDE.md. Claude reads and applies them automatically."
+        },
+        {
+          "key": "settings.json (allowedTools)",
+          "description": "Configure auto-allowed tools",
+          "explanation": "In .claude/settings.json, set allowedTools to auto-approve specific tools: [\"Bash(git *)\", \"Read\", \"Edit\", \"Write\"]"
+        },
+        {
+          "key": "settings.json (hooks)",
+          "description": "Event-driven automation hooks",
+          "explanation": "Configure shell commands that run on events: PreToolUse, PostToolUse, UserPromptSubmit, etc. Great for linting, formatting, or notifications."
+        }
+      ]
+    },
+    {
+      "id": "cli-flags",
+      "title": "CLI & Flags",
+      "color": "#ec4899",
+      "icon": "Flag",
+      "items": [
+        {
+          "key": "claude",
+          "description": "Start interactive REPL",
+          "explanation": "Launch Claude Code in interactive mode. The default way to use Claude Code — opens a conversational interface in your terminal."
+        },
+        {
+          "key": "claude -p \"prompt\"",
+          "description": "Non-interactive single prompt",
+          "explanation": "Execute a single prompt and exit. Perfect for scripts, CI/CD, and automation. Output goes to stdout."
+        },
+        {
+          "key": "claude -c",
+          "description": "Continue last conversation",
+          "explanation": "Resume the most recent conversation with full context preserved. Great for picking up where you left off."
+        },
+        {
+          "key": "claude -r \"prompt\"",
+          "description": "Resume with new prompt",
+          "explanation": "Continue the last conversation but immediately send a new prompt. Combines -c with a new message."
+        },
+        {
+          "key": "claude --model <name>",
+          "description": "Specify model to use",
+          "explanation": "Choose a specific model: --model claude-sonnet-4-6, --model claude-opus-4-6, --model claude-haiku-4-5-20251001"
+        },
+        {
+          "key": "claude --allowedTools",
+          "description": "Set allowed tools for session",
+          "explanation": "Pre-approve specific tools: --allowedTools 'Bash(git *)' 'Read' 'Edit'. Reduces permission prompts."
+        },
+        {
+          "key": "claude --dangerously-skip-permissions",
+          "description": "Skip ALL permission checks (YOLO)",
+          "explanation": "Auto-accepts every tool call without asking. Powerful but dangerous — only use for trusted, well-defined tasks in safe environments."
+        },
+        {
+          "key": "claude --output-format json",
+          "description": "JSON output format",
+          "explanation": "Output responses as JSON for programmatic consumption. Options: text, json, stream-json. Great for piping to other tools."
+        },
+        {
+          "key": "claude --verbose",
+          "description": "Enable verbose output",
+          "explanation": "Shows additional debug information including tool calls, token counts, and internal reasoning steps."
+        },
+        {
+          "key": "claude config set <key> <val>",
+          "description": "Set configuration values",
+          "explanation": "Persistently set config values: claude config set model claude-opus-4-6, claude config set theme dark"
+        },
+        {
+          "key": "claude mcp add <name>",
+          "description": "Add MCP server via CLI",
+          "explanation": "Add an MCP server from command line: claude mcp add github --transport stdio -- npx @anthropic/mcp-github"
+        },
+        {
+          "key": "claude update",
+          "description": "Update Claude Code to latest",
+          "explanation": "Updates Claude Code CLI to the latest version. Run periodically to get new features and bug fixes."
+        },
+        {
+          "key": "cat file | claude -p \"prompt\"",
+          "description": "Pipe input as context",
+          "explanation": "Pipe file contents or command output directly into Claude: git diff | claude -p 'review this diff'. Stdin becomes part of the prompt context."
+        },
+        {
+          "key": "claude -p --output-format stream-json",
+          "description": "Streaming JSON output",
+          "explanation": "Stream responses as newline-delimited JSON objects. Each chunk is a valid JSON object. Best for real-time processing."
+        }
+      ]
+    }
+  ]
+}
