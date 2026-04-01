@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,11 +83,10 @@
             <rect width="36" height="36" rx="8" fill="#ffaa3a"/>
             <text x="5" y="14" font-family="monospace" font-size="9" font-weight="800" fill="#000e22">CC</text>
             <text x="5" y="26" font-family="monospace" font-size="9" font-weight="800" fill="#000e22">CS</text>
-            <line x1="5" y1="18" x2="31" y2="18" stroke="#000e22" stroke-width="0.8" opacity="0.3"/>
           </svg>
-          <span class="hidden sm:inline" :style="'color: var(--text)'">
-            <span class="font-black tracking-tight" style="color:#ffaa3a">CCCS</span>
-            <span class="font-light text-xs ml-1 opacity-60">Cheatsheet</span>
+          <span class="hidden sm:flex flex-col leading-tight">
+            <span class="font-black text-sm tracking-tight" style="color:#ffaa3a">CCCS</span>
+            <span class="text-xs opacity-50" :style="'color: var(--muted)'">Claude Code Cheat Sheet</span>
           </span>
         </a>
         <div class="flex-1 max-w-md">
@@ -405,7 +404,14 @@
 
         scrollToSection(id) {
           const el = document.getElementById(id);
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (!el) return;
+          const header = document.querySelector('header');
+          const nav = document.querySelector('nav');
+          const headerH = header ? header.offsetHeight : 56;
+          const navH = nav ? nav.offsetHeight : 52;
+          const offset = headerH + navH + 16;
+          const top = el.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
         },
 
         async copyItem(key, event) {
